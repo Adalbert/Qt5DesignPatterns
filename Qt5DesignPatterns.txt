@@ -46,5 +46,15 @@ testCopyPointer:
 "15:36:06" 0x243182fc8a0 "Destructing"
 
 
+->  Pointer vs copy
+      Copy is SLOW
+      Pointers are FAST
+
+-> for delete the vector memory on the heap:
+
+   qDeleteAll(itemVector); !!
+
+
+
 
 
