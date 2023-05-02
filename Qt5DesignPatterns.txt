@@ -55,6 +55,14 @@ testCopyPointer:
    qDeleteAll(itemVector); !!
 
 
+[ QScopedPointer | QScopedArrayPointer ]
+  - Automatically deleting when it goes out of scope
+  - Takes ownership of pointer and automatically removes it. 
 
 
+[ Smart Pointer ]
+  - unique_ptr: only one object can point to it. (Es gibt immer nur einen pointer welcher auf das Objekt verweist)
+  - shared_ptr: multiple objects can point to it. (mehrere (use_count()!) Pointer verweisen auf das eine Objekt)
 
+
+Q_DISABLE_COPY makes impossible to copy a QObject
