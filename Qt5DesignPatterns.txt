@@ -1,0 +1,68 @@
+
+Memory management:
+------------------
+
+find stack size limitation (linux):
+* ulimit -s
+* ulimit -a
+
+Objects save on the Heap, pointers to objects on the Stack!!!
+
+
+testCopy:
+"15:21:49" 0x1a57befd18 "Constructing"
+"15:21:51" 0x1a57befd18 "Constructed"
+"15:21:51" 0x1a57befd30 "Copy..."
+"15:22:01" 0x1a57befd30 "Copied"
+0x1a57befd30 len: 92233720
+"15:22:01" 0x1a57befd30 "Destroying"
+"15:22:01" 0x1a57befd30 "Destructing"
+
+testPointer:
+"15:19:44" 0x4148eff688 "Constructing"
+"15:19:46" 0x4148eff688 "Constructed"
+"15:19:46" 0x4148eff688 "Pointer"
+0x4148eff688 Length:  92233720
+
+testAddressOf (Referenz:):
+"15:23:02" 0x3374dafb38 "Constructing"
+"15:23:04" 0x3374dafb38 "Constructed"
+"15:23:04" 0x3374dafb38 "AddressOf"
+0x3374dafb38 Length:  92233720
+
+testHeap:
+"15:26:16" 0x28c1157ccb0 "Constructing"
+"15:26:18" 0x28c1157ccb0 "Constructed"
+"15:26:18" 0x28c1157ccb0 "Hello"
+"15:26:18" 0x28c1157ccb0 "Destroying"
+"15:26:18" 0x28c1157ccb0 "Destructing"
+
+testCopyPointer:
+"15:36:04" 0x243182fc8a0 "Constructing"
+"15:36:06" 0x243182fc8a0 "Constructed"
+"15:36:06" 0x243182fc8a0 "start copy"
+"15:36:06" 0x243182fc8a0 "end copy"
+"15:36:06" 0x243182fc8a0 "Destroying"
+"15:36:06" 0x243182fc8a0 "Destructing"
+
+
+->  Pointer vs copy
+      Copy is SLOW
+      Pointers are FAST
+
+-> for delete the vector memory on the heap:
+
+   qDeleteAll(itemVector); !!
+
+
+[ QScopedPointer | QScopedArrayPointer ]
+  - Automatically deleting when it goes out of scope
+  - Takes ownership of pointer and automatically removes it. 
+
+
+[ Smart Pointer ]
+  - unique_ptr: only one object can point to it. (Es gibt immer nur einen pointer welcher auf das Objekt verweist)
+  - shared_ptr: multiple objects can point to it. (mehrere (use_count()!) Pointer verweisen auf das eine Objekt)
+
+
+Q_DISABLE_COPY makes impossible to copy a QObject
