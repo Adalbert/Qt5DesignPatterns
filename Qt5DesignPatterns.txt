@@ -60,9 +60,23 @@ testCopyPointer:
   - Takes ownership of pointer and automatically removes it. 
 
 
+[ QSharedPointer ]
+
+
 [ Smart Pointer ]
   - unique_ptr: only one object can point to it. (Es gibt immer nur einen pointer welcher auf das Objekt verweist)
   - shared_ptr: multiple objects can point to it. (mehrere (use_count()!) Pointer verweisen auf das eine Objekt)
 
 
 Q_DISABLE_COPY makes impossible to copy a QObject
+
+
+[ Signals / Slots ]
+  - slot can disconnect automatically (with qobject_cast<>) from his (unknown) sender (s. qt5dp-5-2)
+    Wenn z.B. eine funktion nur bestimmte Zeit (über QTimer) aufgerufen werden soll.
+  - Ein Timer mit mehreren Slots verknüpfen
+
+  - QObject *source = sender();
+
+  - emit object.signal();    // Aufruf eines signals ausserhalb des Objektes
+
