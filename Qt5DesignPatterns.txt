@@ -59,6 +59,8 @@ testCopyPointer:
   - Automatically deleting when it goes out of scope
   - Takes ownership of pointer and automatically removes it. 
 
+[ QSharedPointer ]
+  - wichtig bei threads
 
 [ QSharedPointer ]
 
@@ -79,4 +81,41 @@ Q_DISABLE_COPY makes impossible to copy a QObject
   - QObject *source = sender();
 
   - emit object.signal();    // Aufruf eines signals ausserhalb des Objektes
+
+
+[ Get Sender Object ]
+  - QTcpSocket example (in slot method):  QTcpSocket *socket = qobject_cast<QTcpSocket*>(sender());
+    => so können wir ein Objekt über etwas informieren, welches dann abhängig davon von wem die Info kommt, unterschiedlich auf diese Info reagiert.
+       AIODevice *dev = qobject_cast<AIODevice*>(sender());
+       if (dev->name().contains("Keithley))  ...
+
+    => sender() returns a pointer to the object that sent the signal, if called in a slot activated by a signal; otherwise it returns nullptr.
+
+QObject->deleteLater();  //The object will be deleted when control returns to the event loop.
+
+
+[ Q_DECL_EXPORT / SharedLibrary ]
+  - qt5dp-5-6
+
+
+[ QThread ]
+  - use moveToThread(QThread *targetThread) instead of inherit
+      Keithley *dev = new Keithley(nullptr);  // NO PARENT!!! 
+      QThread *thread = new QThread;
+      connect(thread, &QThread::started, dev, &Keithley::run, Qt::QueuedConnection);
+      connect(dev, &Keithley::finished, thread, &Thread::quit, Qt::QueuedConnection);
+      thread->setObjectName("keithley thread");
+      dev->moveToThread(thread);
+      thread->start();
+
+  - QThreadPool for multiple threads
+      class Keithley : public ...., public QRunnable
+
+
+===============================================================================================================================
+----- [ AllInOne ] -----
+change: name() -> objectName()  (QObject) ???
+---
+devices in own threads?
+
 
